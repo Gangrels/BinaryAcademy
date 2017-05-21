@@ -13,20 +13,20 @@
 
 Напомню, как он выглядел:
 
-function makeCounter() {
-  var currentCount = 1;
+    function makeCounter() {
+    var currentCount = 1;
 
-  return function() {
-    return currentCount++;
-  };
-}
+    return function() {
+        return currentCount++;
+    };
+    }
 
-var counter = makeCounter();
+    var counter = makeCounter();
 
-// каждый вызов возвращает результат, увеличивая счётчик
-alert( counter() ); // 1
-alert( counter() ); // 2
-alert( counter() ); // 3
+    // каждый вызов возвращает результат, увеличивая счётчик
+    alert( counter() ); // 1
+    alert( counter() ); // 2
+    alert( counter() ); // 3
 
 Счётчик получился вполне рабочий, но вот только возможностей ему не хватает. Хорошо бы, чтобы можно было сбрасывать значение счётчика или начинать отсчёт с другого значения вместо 1 или… Да много чего можно захотеть от простого счётчика и, тем более, в более сложных проектах.
 
@@ -35,28 +35,28 @@ alert( counter() ); // 3
 function makeCounter() {
   var currentCount = 1;
 
-  return { // возвратим объект вместо функции
-    getNext: function() {
-      return currentCount++;
-    },
+    return { // возвратим объект вместо функции
+        getNext: function() {
+        return currentCount++;
+        },
 
-    set: function(value) {
-      currentCount = value;
-    },
+        set: function(value) {
+        currentCount = value;
+        },
 
-    reset: function() {
-      currentCount = 1;
+        reset: function() {
+        currentCount = 1;
+        }
+    };
     }
-  };
-}
 
-var counter = makeCounter();
+    var counter = makeCounter();
 
-alert( counter.getNext() ); // 1
-alert( counter.getNext() ); // 2
+    alert( counter.getNext() ); // 1
+    alert( counter.getNext() ); // 2
 
-counter.set(5);
-alert( counter.getNext() ); // 5
+    counter.set(5);
+    alert( counter.getNext() ); // 5
 
 Теперь функция makeCounter возвращает не одну функцию, а объект с несколькими методами:
 
@@ -73,33 +73,33 @@ alert( counter.getNext() ); // 5
 
 Поэтому давайте вернём его!
 
-function makeCounter() {
-  var currentCount = 1;
+    function makeCounter() {
+    var currentCount = 1;
 
-  // возвращаемся к функции
-  function counter() {
-      return currentCount++;
+    // возвращаемся к функции
+    function counter() {
+        return currentCount++;
+        }
+
+    // ...и добавляем ей методы!
+    counter.set = function(value) {
+        currentCount = value;
+    };
+
+    counter.reset = function() {
+        currentCount = 1;
+    };
+
+    return counter;
     }
 
-  // ...и добавляем ей методы!
-  counter.set = function(value) {
-    currentCount = value;
-  };
+    var counter = makeCounter();
 
-  counter.reset = function() {
-    currentCount = 1;
-  };
+    alert( counter() ); // 1
+    alert( counter() ); // 2
 
-  return counter;
-}
-
-var counter = makeCounter();
-
-alert( counter() ); // 1
-alert( counter() ); // 2
-
-counter.set(5);
-alert( counter() ); // 5
+    counter.set(5);
+    alert( counter() ); // 5
 
 Красиво, не правда ли? Получился полноценный объект, который можно вдобавок ещё и вызывать.
 
@@ -108,5 +108,6 @@ alert( counter() ); // 5
 Далее вы найдёте различные задачи на понимание замыканий. Рекомендуется их сделать самостоятельно.
 
 ***
+Далее идут разные задачи, и отличные комментарии от Awasaky, в которых он объясняет не всегда понятные решения авторов
 
 ***
